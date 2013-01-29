@@ -10,28 +10,28 @@
 #-----------------------------------------------------------------------------------------------------------------------------------------#
 
 proc gFileDirSelector { { type "file" } } {
-  if { $type ne "dir" } {
-		  set types {
+	if { $type ne "dir" } {
+		set types {
     			{{text files}       {.txt}    TEXT}
     			{{tcl scripts}      {.tcl}        }
     			{{all files}        *             }
 				}
-		  set filename [tk_getOpenFile -filetypes $types]
-		  if {$filename ne ""} {
+		set filename [tk_getOpenFile -filetypes $types]
+		if {$filename ne ""} {
     			puts "file selected -> $filename"
-			    return $filename
-			    } else {
-			    puts "file selection cancelled"
-			    return 0
-			    }
-		  } else {
-		  set dirSel [tk_chooseDirectory]
-		  if {$dirSel ne ""} {
+			return $filename
+			} else {
+			puts "file selection cancelled"
+			return 0
+			}
+		} else {
+		set dirSel [tk_chooseDirectory]
+		if {$dirSel ne ""} {
     			puts "dir selected -> $dirSel"
-			    return $dirSel
-			    } else {
-			    puts "directory selection cancelled"
-			    return 0
-			    }
-		  } 
+			return $dirSel
+			} else {
+			puts "directory selection cancelled"
+			return 0
+			}
+		} 
 	}
