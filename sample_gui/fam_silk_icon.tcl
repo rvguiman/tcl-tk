@@ -1,6 +1,6 @@
 #!/bin/sh
 # next line starts tclsh
-exec /bin/wish
+exec /bin/wish "$0" ${1+"$@"}
 
 #-------------------------------------------------------------------#
 # what: sample using famfamfam icons and package from famfamfam.com
