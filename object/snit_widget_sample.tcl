@@ -67,7 +67,7 @@ snit::widget SenderWidget {
         #data table insert format [list [list "" "" ""] [list "" "" ""] ]
         
         foreach curList $dataList {
-            set kIndex [.tab insertchildlist root end [list [concat "" $curList] ] ]
+            set kIndex [.tab insertchildlist root end [list [concat [list ""] $curList] ] ]
             $self setIcon [lindex $curList 0] $kIndex
             .tab configure -height 0
             .tab configure -width 0
