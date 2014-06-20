@@ -45,17 +45,33 @@ snit::widget SenderWidget {
         eval "::[$self cget -callback]"
     }
     
-    method setIcon { } {
-        set delIcon [::famfamfam::silk get door_out]
-        .tab cellconfigure 0,0 -image $delIcon
+    method setIcon { fileName kIndex } {
+        set pdfIcon [::famfamfam::silk get page_white_acrobat]
+        set wordIcon [::famfamfam::silk get page_white_word]
+        set excelIcon [::famfamfam::silk get page_white_excel]
+        set unkIcon [::famfamfam::silk get help]
+        if { [lindex [split $fileName "."] end ] == "pdf" } {
+            .tab cellconfigure $kIndex,0 -image $pdfIcon
+        } elseif { [lindex [split $fileName "."] end ] == "doc" } {
+            .tab cellconfigure $kIndex,0 -image $wordIcon
+        } elseif { [lindex [split $fileName "."] end ] == "xls" } {
+            .tab cellconfigure $kIndex,0 -image $excelIcon
+        } else {
+            .tab cellconfigure $kIndex,0 -image $unkIcon
+        }
+        
+        #.tab cellconfigure $k,0 -image $delIcon
     }
     
     method insertData { dataList } {
-        #datalist format [list [list "" "" ""] [list "" "" ""] ]
-        .tab insertchildlist root end $dataList
-        .tab configure -height 0
-        .tab configure -width 0
-        $self setIcon
+        #data table insert format [list [list "" "" ""] [list "" "" ""] ]
+        
+        foreach curList $dataList {
+            set kIndex [.tab insertchildlist root end [list [concat "" $curList] ] ]
+            $self setIcon [lindex $curList 0] $kIndex
+            .tab configure -height 0
+            .tab configure -width 0
+        }
     }
     
     method delData { } {
@@ -65,12 +81,14 @@ snit::widget SenderWidget {
     constructor { args } {
         $self configurelist $args
         set fr [labelframe $win.f -text "Lower Frame" -padx 5 -pady 5]
-        tablelist::tablelist .tab -showseparators 1 -columns { 0 "file" 0 "path" 0 "size" } \
+        tablelist::tablelist .tab -showseparators 1 -columns { 0 "type" 0 "file" 0 "path" 0 "size" } \
             -stretch all -width [$self cget -width] -height [$self cget -height] -selecttype row
         button .buttCallBack -text "callback" -command [list $self callCallback ]
+        button .buttExit -text "Exit" -command exit
         
         grid .tab -in $fr -row 0 -column 0 -sticky nesw
         grid .buttCallBack -in $fr -row 1 -column 0 -sticky w
+        grid .buttExit -in $fr -row 2 -column 0 -sticky w
         grid $fr -sticky nesw -padx 5 -pady 5
         
         grid columnconfigure $fr 0 -weight 1
@@ -79,9 +97,14 @@ snit::widget SenderWidget {
         grid rowconfigure $win 0 -weight 1
         
         #pop up menu
-        set pm [menu .popMenu]
-        $pm add command -label "delete" -command [list $self delData]
-        $pm add command -label "edit" -command [list $self delData]
+        set delIcon [::famfamfam::silk get bin]
+        set cancelIcon [::famfamfam::silk get cancel]
+        set addIcon [::famfamfam::silk get add]
+        
+        set pm [menu .popMenu -title "Options" -tearoff 0]
+        $pm add command -label " delete file" -command [list $self delData] -image $delIcon -compound left
+        $pm add command -label " add file" -command [list $self delData] -image $addIcon -compound left
+        $pm add command -label " cancel" -image $cancelIcon -compound left
         
         # left click or right click binding sample
         $self setBindRow
@@ -102,5 +125,7 @@ grid rowconfigure .frTop 0 -weight 1
 grid columnconfigure . 0 -weight 1
 grid rowconfigure . 0 -weight 1
 
-.senderWgt insertData [list [list "filename" "/dir/file" "4kb"] ]
-.senderWgt insertData [list [list "filename" "/dir/test/sdfsdfsdf/sdfsdfsdfsdf/sdfsdfsdf/longdir" "4kb"] ]
+.senderWgt insertData [list [list "file1.pdf" "/dir/file" "4kb"] \
+                      [list "file2.doc" "/dir/test/sdfsdfsdf/dfsdf/longdir" "4kb"] \
+                      [list "file3.xls" "/dir/dfsdf/meddir" "4kb"] \
+                      [list "file4.ppt" "/dir/dfsdf/meddir" "4kb"]]
