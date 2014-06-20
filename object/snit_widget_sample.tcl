@@ -11,11 +11,6 @@ exec /bin/wish "$0" ${1+"$@"}
 # lappend ::auto_path /famfam_path
 # lappend ::auto_path /famfamsilk_path
 
-package require tablelist 5.1
-package require snit
-package require famfamfam
-package require famfamfam::silk
-
 proc calltest { } {
     puts "called test"
 }
@@ -41,6 +36,7 @@ snit::widget SenderWidget {
             puts "clicked on row [.tab containing $tablelist::y]"
             .tab select clear 0 end
             .tab select set [list [.tab containing $tablelist::y] ]
+            tk_popup .popMenu %X %Y
         }
     }
     
@@ -49,7 +45,6 @@ snit::widget SenderWidget {
         eval "::[$self cget -callback]"
     }
     
-    #testing for image insertion
     method setIcon { } {
         set delIcon [::famfamfam::silk get door_out]
         .tab cellconfigure 0,0 -image $delIcon
@@ -61,6 +56,10 @@ snit::widget SenderWidget {
         .tab configure -height 0
         .tab configure -width 0
         $self setIcon
+    }
+    
+    method delData { } {
+        puts "deleting data"
     }
     
     constructor { args } {
@@ -78,6 +77,13 @@ snit::widget SenderWidget {
         grid rowconfigure $fr 0 -weight 1
         grid columnconfigure $win 0 -weight 1
         grid rowconfigure $win 0 -weight 1
+        
+        #pop up menu
+        set pm [menu .popMenu]
+        $pm add command -label "delete" -command [list $self delData]
+        $pm add command -label "edit" -command [list $self delData]
+        
+        # left click or right click binding sample
         $self setBindRow
         # for cell
         #$self setBindCell
