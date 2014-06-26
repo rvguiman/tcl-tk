@@ -1,15 +1,13 @@
 #!/bin/sh
 # next line starts tclsh
-exec /bin/wish "$0" ${1+"$@"}
+exec /usr/local/bin/wish "$0" ${1+"$@"}
 
 #-------------------------------------------------------------------#
 # what: sample using famfamfam icons and package from famfamfam.com
 # author: ricardo
 #-------------------------------------------------------------------#
 
-# append your auto path with the package directory
-# lappand ::auto_path /tcl/lib/your_dir/famfamfam1/
-# lappand ::auto_path /tcl/lib/your_dir/famfamfam_silk1/
+lappend ::auto_path "/Users/rvguiman/Documents/Dev Folder/tcl/lib/famfamfam-master"
 
 package require famfamfam
 package require famfamfam::silk
