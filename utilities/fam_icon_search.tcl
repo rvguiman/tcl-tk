@@ -1,6 +1,6 @@
 #!/bin/sh
 # next line restarts using wish \
-exec /bin/wish "$0" ${1+"$@"}
+exec /usr/local/bin/wish "$0" ${1+"$@"}
 
 #-------------------------------------------------#
 # what: search famfamfam icon app made in tcl tk
@@ -9,16 +9,14 @@ exec /bin/wish "$0" ${1+"$@"}
 #-------------------------------------------------#
 
 # use your own dir
-#lappend ::auto_path /ActiveTcl8.6.0.0/lib/
-#lappend ::auto_path /lib/famfamfam1/
-#lappend ::auto_path /lib/famfamfam_silk1/
+lappend ::auto_path "/Users/rvguiman/Documents/Dev Folder/tcl/lib/famfamfam-master"
 
 package require famfamfam
 package require famfamfam::silk
 package require BWidget
 package require tablelist 5.1
 
-set famIconPath "/lib/famfamfam_silk1/silk/icons"
+set famIconPath "/Users/rvguiman/Documents/Dev Folder/tcl/lib/famfamfam-master/silk/icons"
 set searchPatt ""
 set iconList [list]
 set tb ""
