@@ -1,15 +1,17 @@
 #!/bin/sh
 # next line starts wish \
-exec /bin/wish "$0" ${1+"$@"}
+exec /usr/local/bin/wish "$0" ${1+"$@"}
 
 #---------------------------------------------------
 # what: sample snit widget object
 # author: ricardo
 #---------------------------------------------------
 
-# lappend ::auto_path /ActiveTcl8.6.0.0/lib/   - specify package path
-# lappend ::auto_path /famfam_path
-# lappend ::auto_path /famfamsilk_path
+
+lappend ::auto_path "/Users/rvguiman/Documents/Dev Folder/tcl/lib/famfamfam-master"
+package require famfamfam
+package require famfamfam::silk
+package require tablelist 5.1
 
 proc calltest { } {
     puts "called test"
