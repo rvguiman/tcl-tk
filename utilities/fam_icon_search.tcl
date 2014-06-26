@@ -91,6 +91,7 @@ proc iniGui { } {
     grid columnconfigure $fr2 0 -weight 1
     grid rowconfigure $fr2 0 -weight 1
     
+    watchPatt "" "" ""
     trace variable searchPatt w watchPatt
     bind [$tb bodytag] <Button-1> {
         foreach {tablelist::W tablelist::x tablelist::y} \
