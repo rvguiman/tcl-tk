@@ -60,7 +60,7 @@ proc iniGui { } {
     global tb
     global famCodeStr
     wm title . "fam Icon Search"
-    wm maxsize . 400 800
+    wm maxsize . 600 800
     set fr1 [labelframe .fr1 -text "Search" -padx 5 -pady 5]
     label .labSearch -text "Pattern:"
     entry .entSearch -textvariable searchPatt
