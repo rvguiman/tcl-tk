@@ -49,7 +49,7 @@ proc watchPatt { varname key op } {
     global iconList
     global tb
     $tb delete 0 end
-    set iconList [trimFiles [ getIconBasePattern $searchPatt] ]
+    set iconList [lsort [trimFiles [ getIconBasePattern $searchPatt] ] ]
     foreach curIcon $iconList {
         set kIndex [$tb insertchildlist root end [list [list "" [lindex [split $curIcon "."] 0]] ] ]
         setIcon $curIcon $kIndex
