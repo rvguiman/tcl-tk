@@ -32,9 +32,9 @@ namespace eval RegCheck {
             set lineLs [list]
             foreach curLine $allTxt {
                 #puts "\@$lineCtr:$curLine"
-                set regRes [regexp -all -inline $regStr $curLine]
-                if { [llength $regRes] >= 1 } {
-                    lappend lineLs [join $regRes " "]
+                set regRes [regexp $regStr $curLine]
+                if { $regRes == 1 } {
+                    lappend lineLs $curLine
                     set matchSw 1
                 }
                 incr lineCtr
@@ -73,7 +73,7 @@ namespace eval RegCheck {
         entry .entstr -bg white -textvariable [namespace which -variable regStr]
         set iconGlass [::famfamfam::silk get zoom]
         button .buttchk -text "Check" -command [namespace which -command checkNow] -image $iconGlass -compound left
-        radiobutton .r1 -text "all lines" -variable [namespace which -variable multilineSw] -value 0
+        radiobutton .r1 -text "all lines (-all -inline)" -variable [namespace which -variable multilineSw] -value 0
         radiobutton .r2 -text "per line" -variable [namespace which -variable multilineSw] -value 1
 
         set iconSamStr [::famfamfam::silk get page_white_text]
