@@ -25,6 +25,7 @@ namespace eval RegCheck {
         variable multilineSw
         puts $regStr
         set allTxt [.txtarea get 1.0 end]
+        .txtarea2 configure -state normal
         if { $multilineSw } {
             set lineCtr 0
             set matchSw 0
@@ -56,7 +57,8 @@ namespace eval RegCheck {
             } else {
                 .labmat configure -text "Matched word/s line/s: false" -fg red
             }
-        } 
+        }
+        .txtarea2 configure -state disabled 
     }
     
     proc iniGui { } {
@@ -67,7 +69,7 @@ namespace eval RegCheck {
         wm title . "TCL regular expression tester"
         wm geometry . 400x400
         set iconReg [::famfamfam::silk get script_code]
-        label .labstr -text "Reg Exp" -image $iconReg -compound left
+        label .labstr -text "Reg Exp (do not enclose \{\})" -image $iconReg -compound left
         entry .entstr -bg white -textvariable [namespace which -variable regStr]
         set iconGlass [::famfamfam::silk get zoom]
         button .buttchk -text "Check" -command [namespace which -command checkNow] -image $iconGlass -compound left
@@ -83,7 +85,7 @@ namespace eval RegCheck {
         set iconMatStr [::famfamfam::silk get control_equalizer_blue]
         label .labmat -text "Matched word/s line/s" -image $iconMatStr -compound left
         set sw2 [::ScrolledWindow .darea]
-        set tx2 [text .txtarea2 -bg gray90]
+        set tx2 [text .txtarea2 -bg gray90 -state disabled]
         $sw2 setwidget $tx2
         
         grid .labstr -row 0 -column 0 -sticky w
