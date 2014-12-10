@@ -125,29 +125,29 @@ proc setColor { } {
 
 proc saveAs { } {
         global colorList colorList2 data
-		set types {
-    			{{cssfiles}       {.css}    TEXT}
-    			{{all files}        *           }
-				}
-		set filename [tk_getSaveFile -filetypes $types]
-		if {$filename ne ""} {
-    		puts "file selected -> $filename"
-            set ctr 0
-            foreach curColor $colorList {
-                if { $curColor != [lindex $colorList2 $ctr] } {
-                    puts "replace here"
-                    regsub -all $curColor $data [lindex $colorList2 $ctr] data
-                }
-                incr ctr
-            }
-            set newCssHan [open $filename w]
-            puts $newCssHan $data
-            close $newCssHan
-			return $filename
-		} else {
-			puts "file selection cancelled"
-			return 0
+	set types {
+    		{{cssfiles}       {.css}    TEXT}
+    		{{all files}        *           }
 		}
+	set filename [tk_getSaveFile -filetypes $types]
+	if {$filename ne ""} {
+    		puts "file selected -> $filename"
+            	set ctr 0
+            	foreach curColor $colorList {
+                	if { $curColor != [lindex $colorList2 $ctr] } {
+                    		puts "replace here"
+                    		regsub -all $curColor $data [lindex $colorList2 $ctr] data
+                	}
+                	incr ctr
+            	}
+            	set newCssHan [open $filename w]
+            	puts $newCssHan $data
+            	close $newCssHan
+		return $filename
+	} else {
+		puts "file selection cancelled"
+		return 0
+	}
 }
 
 proc onGui { } {
@@ -167,14 +167,14 @@ proc onGui { } {
     $mFile add cascade -label "Exit" -underline 0 -command exit
 
     set lff [labelframe .lff -text "CSS FILE" -padx $padxv -pady $padyv] 
-	  label $lff.labcss -text "Path:"
-	  entry $lff.entcss -textvariable cssFile
-	  button $lff.buttcss -text "Browse" -command gFileDirSelector
+    label $lff.labcss -text "Path:"
+    entry $lff.entcss -textvariable cssFile
+    button $lff.buttcss -text "Browse" -command gFileDirSelector
 
     set lft [labelframe .lft -text "TOOLS" -padx $padxv -pady $padyv]
     label $lft.labrep -text "Color Code:"
     entry $lft.entrep -textvariable cssRepCol
-	  button $lft.buttrep -text "<- SET ->" -command setColor
+    button $lft.buttrep -text "<- SET ->" -command setColor
     button $lft.butttest -text "Color Picker" -command chCol
 
     set lf [labelframe .lf -text "CSS COLORS" -padx $padxv -pady $padyv]
@@ -200,7 +200,7 @@ proc onGui { } {
     grid $lf -sticky nesw -padx $padxv -pady $padyv
     grid $lf.labor -row 0 -column 0 -sticky w
     grid $lf.labrep -row 0 -column 1 -sticky w
-	 grid $lf.lsb -row 1 -column 0 -sticky nesw
+    grid $lf.lsb -row 1 -column 0 -sticky nesw
     grid $lf.lsb2 -row 1 -column 1 -sticky nesw
     grid $lf.sby -row 1 -column 2 -sticky ns
     
@@ -209,7 +209,7 @@ proc onGui { } {
     grid columnconfigure $lff 1 -weight 1
     grid columnconfigure $lft 1 -weight 1
     grid columnconfigure $lf 1 -weight 1
-	grid rowconfigure $lf 1 -weight 1
+    grid rowconfigure $lf 1 -weight 1
 }
 
 onGui
