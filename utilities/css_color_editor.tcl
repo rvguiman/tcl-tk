@@ -154,7 +154,7 @@ proc onGui { } {
     global cssFile colorList colorList2 lf lft cssRepCol
     set padxv 5
     set padyv 5
-    wm title . "CSS COLOR TOOL"
+    wm title . "CSS COLOR EDITOR"
     wm geometry . 400x500
 
     #Menu
