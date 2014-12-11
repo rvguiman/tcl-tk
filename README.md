@@ -2,7 +2,7 @@ tcl - tk
 ======
 <h3>collection of tcl and tk scripts , utilities and modules</h3>
 1. sqlite example
-2. snit widget - object oriented
+2. snit widget example - object oriented
 3. bwidget scrolled window example - auto scroll
 4. using famfamfam package - icons
 5. tablelist example
